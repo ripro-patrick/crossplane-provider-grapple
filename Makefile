@@ -1,7 +1,8 @@
 # ====================================================================================
 # Setup Project
 PROJECT_NAME := provider-grpl
-PROJECT_REPO := github.com/crossplane/$(PROJECT_NAME)
+# PROJECT_REPO := github.com/crossplane/$(PROJECT_NAME)
+PROJECT_REPO := github.com/ripro-patrick/crossplane-provider-grapple
 
 PLATFORMS ?= linux_amd64 linux_arm64
 -include build/makelib/common.mk
