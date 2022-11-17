@@ -25,62 +25,62 @@ import (
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-// grapisParameters are the configurable fields of a grapis.
-type grapisParameters struct {
+// GrapisParameters are the configurable fields of a Grapis.
+type GrapisParameters struct {
 	ConfigurableField string `json:"configurableField"`
 }
 
-// grapisObservation are the observable fields of a grapis.
-type grapisObservation struct {
+// GrapisObservation are the observable fields of a Grapis.
+type GrapisObservation struct {
 	ObservableField string `json:"observableField,omitempty"`
 }
 
-// A grapisSpec defines the desired state of a grapis.
-type grapisSpec struct {
+// A GrapisSpec defines the desired state of a Grapis.
+type GrapisSpec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider       grapisParameters `json:"forProvider"`
+	ForProvider       GrapisParameters `json:"forProvider"`
 }
 
-// A grapisStatus represents the observed state of a grapis.
-type grapisStatus struct {
+// A GrapisStatus represents the observed state of a Grapis.
+type GrapisStatus struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider          grapisObservation `json:"atProvider,omitempty"`
+	AtProvider          GrapisObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// A grapis is an example API type.
+// A Grapis is an example API type.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grpl}
-type grapis struct {
+type Grapis struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   grapisSpec   `json:"spec"`
-	Status grapisStatus `json:"status,omitempty"`
+	Spec   GrapisSpec   `json:"spec"`
+	Status GrapisStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// grapisList contains a list of grapis
-type grapisList struct {
+// GrapisList contains a list of Grapis
+type GrapisList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []grapis `json:"items"`
+	Items           []Grapis `json:"items"`
 }
 
-// grapis type metadata.
+// Grapis type metadata.
 var (
-	grapisKind             = reflect.TypeOf(grapis{}).Name()
-	grapisGroupKind        = schema.GroupKind{Group: Group, Kind: grapisKind}.String()
-	grapisKindAPIVersion   = grapisKind + "." + SchemeGroupVersion.String()
-	grapisGroupVersionKind = SchemeGroupVersion.WithKind(grapisKind)
+	GrapisKind             = reflect.TypeOf(Grapis{}).Name()
+	GrapisGroupKind        = schema.GroupKind{Group: Group, Kind: GrapisKind}.String()
+	GrapisKindAPIVersion   = GrapisKind + "." + SchemeGroupVersion.String()
+	GrapisGroupVersionKind = SchemeGroupVersion.WithKind(GrapisKind)
 )
 
 func init() {
-	SchemeBuilder.Register(&grapis{}, &grapisList{})
+	SchemeBuilder.Register(&Grapis{}, &GrapisList{})
 }

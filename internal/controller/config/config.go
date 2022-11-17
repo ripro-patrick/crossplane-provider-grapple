@@ -27,6 +27,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
 	"github.com/ripro-patrick/crossplane-provider-grapple/apis/v1alpha1"
+	"github.com/ripro-patrick/crossplane-provider-grapple/apis/gsf/v1alpha1"
 )
 
 // Setup adds a controller that reconciles ProviderConfigs by accounting for

@@ -32,12 +32,13 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
+	v1alpha1 "github.com/ripro-patrick/crossplane-provider-grapple/apis/gsf/v1alpha1"
 	apisv1alpha1 "github.com/ripro-patrick/crossplane-provider-grapple/apis/v1alpha1"
 	"github.com/ripro-patrick/crossplane-provider-grapple/internal/controller/features"
 )
 
 const (
-	errNotgrapis    = "managed resource is not a grapis custom resource"
+	errNotGrapis    = "managed resource is not a Grapis custom resource"
 	errTrackPCUsage = "cannot track ProviderConfig usage"
 	errGetPC        = "cannot get ProviderConfig"
 	errGetCreds     = "cannot get credentials"
@@ -52,9 +53,9 @@ var (
 	newNoOpService = func(_ []byte) (interface{}, error) { return &NoOpService{}, nil }
 )
 
-// Setup adds a controller that reconciles grapis managed resources.
+// Setup adds a controller that reconciles Grapis managed resources.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.grapisGroupKind)
+	name := managed.ControllerName(v1alpha1.GrapisGroupKind)
 
 	cps := []managed.ConnectionPublisher{managed.NewAPISecretPublisher(mgr.GetClient(), mgr.GetScheme())}
 	if o.Features.Enabled(features.EnableAlphaExternalSecretStores) {
@@ -62,7 +63,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.grapisGroupVersionKind),
+		resource.ManagedKind(v1alpha1.GrapisGroupVersionKind),
 		managed.WithExternalConnecter(&connector{
 			kube:         mgr.GetClient(),
 			usage:        resource.NewProviderConfigUsageTracker(mgr.GetClient(), &apisv1alpha1.ProviderConfigUsage{}),
@@ -74,7 +75,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1alpha1.grapis{}).
+		For(&v1alpha1.Grapis{}).
 		Complete(ratelimiter.NewReconciler(name, r, o.GlobalRateLimiter))
 }
 
@@ -92,9 +93,9 @@ type connector struct {
 // 3. Getting the credentials specified by the ProviderConfig.
 // 4. Using the credentials to form a client.
 func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.ExternalClient, error) {
-	cr, ok := mg.(*v1alpha1.grapis)
+	cr, ok := mg.(*v1alpha1.Grapis)
 	if !ok {
-		return nil, errors.New(errNotgrapis)
+		return nil, errors.New(errNotGrapis)
 	}
 
 	if err := c.usage.Track(ctx, mg); err != nil {
@@ -129,9 +130,9 @@ type external struct {
 }
 
 func (c *external) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.grapis)
+	cr, ok := mg.(*v1alpha1.Grapis)
 	if !ok {
-		return managed.ExternalObservation{}, errors.New(errNotgrapis)
+		return managed.ExternalObservation{}, errors.New(errNotGrapis)
 	}
 
 	// These fmt statements should be removed in the real implementation.
@@ -155,9 +156,9 @@ func (c *external) Observe(ctx context.Context, mg resource.Managed) (managed.Ex
 }
 
 func (c *external) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.grapis)
+	cr, ok := mg.(*v1alpha1.Grapis)
 	if !ok {
-		return managed.ExternalCreation{}, errors.New(errNotgrapis)
+		return managed.ExternalCreation{}, errors.New(errNotGrapis)
 	}
 
 	fmt.Printf("Creating: %+v", cr)
@@ -170,9 +171,9 @@ func (c *external) Create(ctx context.Context, mg resource.Managed) (managed.Ext
 }
 
 func (c *external) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.grapis)
+	cr, ok := mg.(*v1alpha1.Grapis)
 	if !ok {
-		return managed.ExternalUpdate{}, errors.New(errNotgrapis)
+		return managed.ExternalUpdate{}, errors.New(errNotGrapis)
 	}
 
 	fmt.Printf("Updating: %+v", cr)
@@ -185,9 +186,9 @@ func (c *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 }
 
 func (c *external) Delete(ctx context.Context, mg resource.Managed) error {
-	cr, ok := mg.(*v1alpha1.grapis)
+	cr, ok := mg.(*v1alpha1.Grapis)
 	if !ok {
-		return errors.New(errNotgrapis)
+		return errors.New(errNotGrapis)
 	}
 
 	fmt.Printf("Deleting: %+v", cr)
