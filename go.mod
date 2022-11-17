@@ -1,4 +1,4 @@
-module github.com/crossplane/provider-grpl
+module github.com/ripro-patrick/crossplane-provider-grapple
 
 go 1.19
 

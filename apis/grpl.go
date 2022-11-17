@@ -20,8 +20,8 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	// samplev1alpha1 "github.com/crossplane/provider-grpl/apis/sample/v1alpha1"
-	grplv1alpha1 "github.com/crossplane/provider-grpl/apis/v1alpha1"
+	// samplev1alpha1 "github.com/ripro-patrick/crossplane-provider-grapple/apis/sample/v1alpha1"
+	grplv1alpha1 "github.com/ripro-patrick/crossplane-provider-grapple/apis/v1alpha1"
 )
 
 func init() {

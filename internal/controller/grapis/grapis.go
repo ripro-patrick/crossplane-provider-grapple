@@ -32,9 +32,8 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
-	"github.com/crossplane/provider-grpl/apis/gsf/v1alpha1"
-	apisv1alpha1 "github.com/crossplane/provider-grpl/apis/v1alpha1"
-	"github.com/crossplane/provider-grpl/internal/controller/features"
+	apisv1alpha1 "github.com/ripro-patrick/crossplane-provider-grapple/apis/v1alpha1"
+	"github.com/ripro-patrick/crossplane-provider-grapple/internal/controller/features"
 )
 
 const (

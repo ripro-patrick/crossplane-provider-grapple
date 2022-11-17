@@ -20,8 +20,8 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/provider-grpl/internal/controller/config"
-	"github.com/crossplane/provider-grpl/internal/controller/grapis"
+	"github.com/ripro-patrick/crossplane-provider-grapple/internal/controller/config"
+	"github.com/ripro-patrick/crossplane-provider-grapple/internal/controller/grapis"
 )
 
 // Setup creates all grpl controllers with the supplied logger and adds them to
